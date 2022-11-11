@@ -1,9 +1,6 @@
 import { Router, Request, Response } from "express";
 import {
   getAllProductsAdmin,
-  // getAllProducts,
-  // getAllProductsByCategory,
-  // getAllProductsByName,
   addNewProduct,
   getProductById,
   deleteProduct,
@@ -46,6 +43,7 @@ routes.get("/:id", async (req: Request, res: Response) => {
   try {
     const {id} = req.params;
     const result = await getProductById(id);
+    console.log(id);
     if(!result){
       res.status(200).json({error_message: "No se encontro el producto con ese id"})
     }

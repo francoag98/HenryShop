@@ -1,5 +1,6 @@
 import React, { FormEvent, useState } from "react";
 import { useAppDispatch } from "../hooks";
+import { setProductName } from "../redux/slices/ProductSlice";
 import { getAllProducts } from "../redux/slices/ProductSlice/productActions";
 
 const Searchbar = () => {
@@ -9,7 +10,8 @@ const Searchbar = () => {
 
   const submitHandler = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    dispatch(getAllProducts());
+    dispatch(getAllProducts(null, search));
+    dispatch(setProductName(search));
     setSearch("");
   };
 

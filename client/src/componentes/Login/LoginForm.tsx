@@ -27,12 +27,16 @@ const LoginForm = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<IFormData>({ resolver: yupResolver(schema) });
+  } = useForm<IFormData>({
+    resolver: yupResolver(schema),
+  });
 
   const handlerSubmit = handleSubmit((values) => {
     let back_url = process.env.REACT_APP_BACKEND_URL;
     if (back_url)
-      axios(`${back_url}/users/`, {})
+      axios(`${back_url}/users/`, {
+        
+      })
         .then((r) => {
           console.log(r);
         })
@@ -94,41 +98,31 @@ export default LoginForm;
 
 // -------------------- Input del Form --------------------
 
-interface inputProps {
-  name: string;
-  type: string;
-  placeholder: string;
-  onChange: React.ChangeEventHandler<HTMLInputElement>;
-  value: string;
-}
+// interface inputProps {
+//   name: string;
+//   type: string;
+//   placeholder: string;
+// }
 
-const FormInput = ({
-  name,
-  type,
-  onChange,
-  placeholder,
-  value,
-}: inputProps) => {
-  return (
-    <div className="mb-3.5 w-full">
-      <input
-        name={name}
-        type={type}
-        onChange={onChange}
-        placeholder={placeholder}
-        value={value}
-        className="border border-black border-solid w-full rounded-2xl pl-2 py-1"
-      />
-      <ErrorText errorText="error" />
-    </div>
-  );
-};
+// const FormInput = ({ name, type, placeholder }: inputProps) => {
+//   return (
+//     <div className="mb-3.5 w-full">
+//       <input
+//         name={name}
+//         type={type}
+//         placeholder={placeholder}
+//         className="border border-black border-solid w-full rounded-2xl pl-2 py-1"
+//       />
+//       <ErrorText errorText="error" />
+//     </div>
+//   );
+// };
 
-// -------------------- Text Error del form --------------------
-interface errorProps {
-  errorText: string;
-}
+// // -------------------- Text Error del form --------------------
+// interface errorProps {
+//   errorText: string;
+// }
 
-const ErrorText: React.FC<errorProps> = ({ errorText }: errorProps) => {
-  return <p className="text-red-600 font-bold text-end">*{errorText}</p>;
-};
+// const ErrorText: React.FC<errorProps> = ({ errorText }: errorProps) => {
+//   return <p className="text-red-600 font-bold text-end">*{errorText}</p>;
+// };

@@ -1,12 +1,7 @@
 import { product } from "../../Types";
 import { Product } from "../../models/Product";
 
-// const paginate = (list: product[], pageSize: number, page:number) => {
-//   const resultList = [];
-//   for(let i = 0; i < list.length; i++){
-//     for(let j = )
-//   }
-// };
+
 
 const pageSize = 5;
 
@@ -20,15 +15,7 @@ export const getAllProducts = async (page:number) => {
   return result;
 };
 
-// export const getAllProductsByCategory = async (category: string, property: string, asc: string) => {
-//   const result = await Product.paginate({ category: new RegExp(`${category}`, 'i'), deleted: false}, {limit: pageSize, sort: {[property]: asc?'asc':'desc'}});
-//   return result;
-// };
 
-// export const getAllProductsByName = async (name: string) => {
-//   const result = await Product.paginate({ name: new RegExp(`${name}`, 'i'), deleted: false }, {limit: pageSize});
-//   return result;
-// };
 
 export const getWithfilters = async (page: number, category?: string, name?: string, property?: string, order?: string) => {
 
@@ -142,6 +129,7 @@ export const getWithfilters = async (page: number, category?: string, name?: str
 };
 
 export const getProductById = async (id: String) => {
+  console.log(id);
   if(id.length >24 || id.length < 24){
     throw new Error("Id no valido");
   }

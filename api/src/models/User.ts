@@ -7,7 +7,7 @@ const userSchema = new Schema({
 	email: {type: String, required: true, unique: true},
 	username: {type: String, required: true, unique: true},
 	password: {type: String, required: true},
-	birthday: {type: Date, required: true},
+	birthday: {type: String, required: true},
 	deleted: {type: Boolean, default: false},
 });
 // modifica el _id de lo que te devuelve la base de datos por id, ademas remueve el __v
@@ -26,4 +26,4 @@ userSchema.plugin(mongoosePaginate);
 export const User = model<
   UserDocument,
   PaginateModel<UserDocument>
->('Users', userSchema, 'Users');
+>('Users', userSchema, 'users');

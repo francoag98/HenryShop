@@ -1,11 +1,13 @@
 import { Router, Request, Response } from "express";
-import { addNewUser 
-
+import { 
+	addNewUser, 
+	getAllUser,
+	getUser
 } from '../controllers/user/index';
 
-const routes = Router();
+const router = Router();
 
-routes.post('/', async (req:Request, res:Response) => {
+router.post('/', async (req:Request, res:Response) => {
 
 	try{
 		const newUser = req.body;
@@ -19,12 +21,24 @@ routes.post('/', async (req:Request, res:Response) => {
 
 });
 
-// routtes.get('/', async (req: Request, res: Response) => {
-// 	try{
+router.get('/admin', async(req:Request, res:Response) => {
+	try{
+		const result = await getAllUser();
+		res.status(200).json(result);
+	}catch(error:any){
+		res.status(500).json({error_message: error.message});
+	}
+});
 
-// 	}catch(error: any){
-// 		res.status(500).json({error_message: error.message});
-// 	}
-// });
+router.get('/admin/:username', async(req:Request, res:Response) => {
+	try{
+		const username = req.params.username;
+		const result = await getUser(username);
+		res.status(200).json(result);
+	}catch(error:any){
+		res.status(500).json({error_message: error.message});
+	}
+});
 
-export default routes;
+
+export default router;
