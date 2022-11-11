@@ -30,7 +30,7 @@ router.get('/admin', async(req:Request, res:Response) => {
 	}
 });
 
-router.get('/admin/:username', async(req:Request, res:Response) => {
+router.get('/:username', async(req:Request, res:Response) => {
 	try{
 		const username = req.params.username;
 		const result = await getUser(username);
