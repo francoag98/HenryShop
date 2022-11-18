@@ -78,24 +78,6 @@ router.post("/login", async (req: Request, res: Response) => {
   }
 });
 
-<<<<<<< Updated upstream
-=======
-
-router.get("/:username", userValidation, async (req: Request, res: Response) => {
-  try {
-    const { username } = req.params;
-    // comparar el username mandado con el que está en el token
-    // const authorization = req.get("authorization");
-    // const token = authorization?.split(" ")[1] as string;
-    // compareUsernames(username, token);
-    const user = await getUser(username);
-    res.status(200).send({ user })
-  } catch (error: any) {
-    res.status(500).send({ message: error.message })
-  }
-});
-
->>>>>>> Stashed changes
 router.get("/admin", async (req: Request, res: Response) => {
   try {
     const result = await getAllUser();
