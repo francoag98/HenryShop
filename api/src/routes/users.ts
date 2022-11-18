@@ -74,7 +74,7 @@ router.get("/:username", userValidation, async (req: Request, res: Response) => 
   } catch (error: any) {
     res.status(500).send({ message: error.message })
   }
-);
+});
 
 router.get("/admin", async (req: Request, res: Response) => {
   try {
