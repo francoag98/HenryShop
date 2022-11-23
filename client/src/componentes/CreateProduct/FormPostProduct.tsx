@@ -1,13 +1,14 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import axios from "axios";
 import { uploadImageToFirebaseStorage } from "../../firebase/uploadImageToFirebaseStorage";
+import { type } from "os";
 
-
+let backData = process.env.REACT_APP_BACKEND_URL;
 const sizes = { XS: "XS", S: "S", M: "M", L: "L", XL: "XL", XXL: "XXL" };
 const colors = { Blanco: "Blanco", Negro: "Negro" };
 interface formData {
@@ -16,7 +17,7 @@ interface formData {
   description: string;
   price: number;
   // image: string;
-  image: string;
+  image: Array<string>;
   stock: number;
   category: string;
   colors: Array<string>;
@@ -44,9 +45,9 @@ const schema = yup
       .typeError("El precio debe ser un número")
       .min(0, "requiere un precio igual o superior a 0")
       .required("No olvides agregar el precio del prodcuto"),
-    image: yup.mixed().test("required", "Debe subir una imagen", (value) => {
-      return value && value.length;
-    }),
+    // image: yup.mixed().test("required", "Debe subir una imagen", (value) => {
+    //   return value && value.length;
+    // }),
     stock: yup
       .number()
       .typeError("Debes agregar el stock del producto")
@@ -79,7 +80,7 @@ const Form = () => {
     description: "",
     price: -1,
     // image: "",
-    image: "",
+    image: [],
     stock: -1,
     category: "",
     colors: [""],
@@ -87,70 +88,153 @@ const Form = () => {
   };
   const [input, setInput] = useState(initialForm);
   
-  const [file, setFile] = useState(null);
-  
-  let imgSrc: any;
-  let imgFile: any;
-  let imgUrl: any;
-  
-  const onChangeFiles = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    
-    const target =  e.target as HTMLInputElement;
-    imgSrc = target.files?.[0];
-    setFile(imgSrc)
-    let arr: string = "";
-    
-    
-      imgFile =  URL.createObjectURL(imgSrc);
-      arr = imgFile;
-      setInput((prev) => ({ ...prev, image: arr }));
-    
+  const [images, setImages] = useState<any>([]);
+  const [link, setLink] = useState<any>([]);
 
+  let imgUrl:any;
+  let newImage:any= [];
+  let objectPost: any = {
+    name: "",
+    rating: 0,
+    description: "",
+    image: [""],
+    price: 0,
+    stock: 0,
+    category: "",
+    colors: [],
+    sizes: []
+  }
+  const [postOb, setPostOb] = useState(objectPost);
+
+  const onChangeFiles = (e: React.ChangeEvent<HTMLInputElement>) => {
+    
+    e.preventDefault();
+     if(e.target.files){
+      for( let i = 0;  i < e.target.files.length; i++){
+         newImage.push(e.target.files[i]);  
+          newImage[i]["id"] =  Math.random();
+          
+      }
+     }
+     
+     setImages(newImage);
   };
   
-
+  
+  
   const submitCall = async ({
     name,
     rating,
     description,
     price,
+    image,
     stock,
     category,
     colors,
     sizes,
   }:formData) => {
-    let backData = process.env.REACT_APP_BACKEND_URL;
     
    
-    imgUrl =  await uploadImageToFirebaseStorage(file);
+     imgUrl = await uploadImageToFirebaseStorage(images);
+     console.log("imgurl", imgUrl);
+  //  const  aver = await Promise.all(imgUrl);
+  //  console.log("imgu2", aver);
+ 
+      
+      
+    //   objectPost = {
+    //     name: name,
+    // rating: rating,
+    // description:description,
+    // price: price,
+    // stock: stock,
+    // category: category,
+    // colors: colors,
+    // sizes: sizes
+    //   }
+      
+      
+      setPostOb({
+        name: name,
+    rating: rating,
+    description:description,
+    price: price,
+    stock: stock,
+    image: image,
+    category: category,
+    colors: colors,
+    sizes: sizes
+      });
+      setLink(imgUrl[0]);
+  }
+  console.log("link1", link);
+
+  
 
 
-    if (backData )
-      axios
-        .post(`${backData}/products`, {
-          name,
-          rating,
-          description,
-          price,
-          image: imgUrl,
-          stock,
-          category,
-          colors,
-          sizes,
-        })
+  useEffect(() => {
+    
+    console.log("link2", link)
+    console.log("postob", postOb);
+    console.log("doblenega", !!link)
+    console.log("linktype" , link.length)
+    
+    if(link.length > 0){
+      axios.post(`${backData}/products`,   {...postOb, image: link}
+        )
         .then((res) => {
           alert("Se creo el producto");
-          window.location.reload();
+          console.log("res", res);
+          console.log("link42", link)
+          // window.location.reload();
         }
         )
         .catch((err) => console.error(err));
-  }
+    }
+    
+  }, [link]);
 
   return (
     <form
       onSubmit={handleSubmit(submitCall)}
       className="flex justify-center flex-col items-center w-9/12 m-auto"
     >
+
+      
+<div className="mb-3.5 w-full">
+        <div className="flex justify-center">
+          <input
+            {...register("image")}
+            id="image"
+            type="file"
+            multiple
+            className="border border-black border-solid w-full rounded-2xl pl-2 py-1"
+            onChange={onChangeFiles}
+          />
+          *
+        </div>
+        {/* { input.image.length? 
+           <div className="flex flex-wrap justify-start h-28 mt-4">
+            
+           { 
+             <img
+               className="h-full mr-4 border border-black border-solid rounded"
+               src={input.image}
+               alt={`upload_image_${input.image}`}
+               key={input.image}
+
+             />
+           }
+         </div>
+        
+
+          : null
+        
+        }  */}
+        {/* {errors.image && (
+          <p className="text-red-600 font-bold">{errors.image.message}</p>
+        )} */}
+      </div>
 
       <div className="mb-3.5 w-full">
         <div className="flex justify-center">
@@ -213,36 +297,6 @@ const Form = () => {
         )}
       </div>
 
-      <div className="mb-3.5 w-full">
-        <div className="flex justify-center">
-          <input
-            {...register("image")}
-            id="image"
-            type="file"
-            className="border border-black border-solid w-full rounded-2xl pl-2 py-1"
-            onChange={onChangeFiles}
-          />
-          *
-        </div>
-        { input.image.length?
-          <div className="flex flex-wrap justify-start h-28 mt-4">
-            
-            {
-              <img
-                className="h-full mr-4 border border-black border-solid rounded"
-                src={input.image}
-                alt={`upload_image_${input.image}`}
-                key={input.image}
-
-              />
-            }
-          </div>: null
-        
-        } 
-        {errors.image && (
-          <p className="text-red-600 font-bold">{errors.image.message}</p>
-        )}
-      </div>
 
       <div className="mb-3.5 w-full">
         <div className="flex justify-center">

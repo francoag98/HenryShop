@@ -9,21 +9,33 @@ import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
    
    const fireConfig: string = (process.env.REACT_APP_FIREBASE_CONFIG as string);
    const firebaseConfig = JSON.parse(fireConfig)
-
+   
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
 const storage = getStorage(app);
 
-export const uploadImageToFirebaseStorage = async (file: any): Promise<string | null> => {
-	if (!file) {
+export const uploadImageToFirebaseStorage = async (files: any): Promise<any> => {
+	console.log("holaaaa", files);
+	if (!files.length) {
+		console.log("file null");
 		return null;
 	}
+    
+	let promises:any = [];
+	let storageRef:any 
+     	files.map( async (file:any)=> {
+		const imageName = `${Date.parse(new Date().toISOString())}.${file.type.split('/')[1]}`;
+		storageRef	= ref(storage, `workshop/${imageName}`);
 
-	const imageName = `${Date.parse(new Date().toISOString())}.${file.type.split('/')[1]}`;
-	const storageRef = ref(storage, `productos/${imageName}`);
-	await uploadBytes(storageRef, file);
-
-	return await getDownloadURL(storageRef);
+		 await uploadBytes(storageRef, file);
+		  
+		const urlImg =  await  getDownloadURL(storageRef);
+		promises.push(urlImg);
+		
+    })
+	console.log("promises", promises);
+	return await Promise.all([promises]);
+	
 };

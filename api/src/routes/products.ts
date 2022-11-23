@@ -89,7 +89,7 @@ routes.get("/:id", async (req: Request, res: Response) => {
 routes.post("/", async (req: Request, res: Response) => {
   try {
     const newProduct = req.body;
-    
+    console.log("post", req.body);
     if (!newProduct) {
       res.status(400).send({ error: "Info Missing" });
     }

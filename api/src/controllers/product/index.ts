@@ -205,7 +205,7 @@ export const getProductById = async (id: String) => {
 
 export const addNewProduct = async (prod: product) => {
   const productFind = await Product.findOne({ name: prod.name });
-  
+  console.log(prod);
   if (
     !prod ||
     !prod.name ||

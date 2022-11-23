@@ -61,7 +61,6 @@ router.get("/getuser/:username", async (req: Request, res: Response) => {
   try {
     const { username } = req.params;
     const user = await getUser(username);
-    console.log(user)
     if (!user) throw new Error();
     res.status(200).send(user);
   } catch (error) {
@@ -76,7 +75,6 @@ router.post(
   userValidation,
   async (req: Request, res: Response) => {
     try {
-      console.log("confirmation resend");
       const { email } = req.body;
       const authorization = req.get("authorization");
       let token = null;
@@ -206,7 +204,6 @@ router.get(
   userValidation,
   async (req: Request, res: Response) => {
     try {
-      console.log("entro a la ruta getUserByToken");
       const authorization = req.get("authorization");
 
       let token: string | undefined = authorization?.split(" ")[1];
