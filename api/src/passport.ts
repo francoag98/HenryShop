@@ -25,7 +25,7 @@ passport.use('auth-github',
 	new GithubStrategy({
 			clientID: GITHUB_ID,
 			clientSecret: GITHUB_SECRET,
-			callbackUrl:'http://localhost:3001/githubusers/github/callback',
+			callbackUrl:'/githubusers/github/callback',
 		},
 		(accesToken:any, refreshToken:any, profile:any, callback:any) => {
 			callback(null, profile);
