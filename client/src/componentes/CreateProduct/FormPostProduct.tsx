@@ -91,7 +91,7 @@ const Form = () => {
   const [images, setImages] = useState<any>([]);
   const [link, setLink] = useState<any>([]);
 
-  let imgUrl:any;
+  
   let newImage:any= [];
   let objectPost: any = {
     name: "",
@@ -127,7 +127,6 @@ const Form = () => {
     rating,
     description,
     price,
-    image,
     stock,
     category,
     colors,
@@ -135,52 +134,26 @@ const Form = () => {
   }:formData) => {
     
    
-     imgUrl = await uploadImageToFirebaseStorage(images);
+    let imgUrl:any = await uploadImageToFirebaseStorage(images);
      console.log("imgurl", imgUrl);
-  //  const  aver = await Promise.all(imgUrl);
-  //  console.log("imgu2", aver);
- 
-      
-      
-    //   objectPost = {
-    //     name: name,
-    // rating: rating,
-    // description:description,
-    // price: price,
-    // stock: stock,
-    // category: category,
-    // colors: colors,
-    // sizes: sizes
-    //   }
-      
-      
-      setPostOb({
+     
+     
+     let object1 = {
         name: name,
     rating: rating,
     description:description,
     price: price,
     stock: stock,
-    image: image,
     category: category,
     colors: colors,
     sizes: sizes
-      });
+      };
+    
       setLink(imgUrl[0]);
-  }
-  console.log("link1", link);
-
-  
-
-
-  useEffect(() => {
-    
-    console.log("link2", link)
-    console.log("postob", postOb);
-    console.log("doblenega", !!link)
-    console.log("linktype" , link.length)
-    
-    if(link.length > 0){
-      axios.post(`${backData}/products`,   {...postOb, image: link}
+      setTimeout(function(){
+        console.log("Hola Mundo");
+    }, 2000);
+      axios.post(`${backData}/products`,   {...object1, image: link}
         )
         .then((res) => {
           alert("Se creo el producto");
@@ -190,9 +163,18 @@ const Form = () => {
         }
         )
         .catch((err) => console.error(err));
-    }
+  }
+  console.log("link1", link);
+
+  
+
+
+  useEffect(() => {
     
-  }, [link]);
+      
+    
+    
+  }, [link, submitCall]);
 
   return (
     <form

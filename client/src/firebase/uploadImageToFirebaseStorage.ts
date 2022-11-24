@@ -36,6 +36,7 @@ export const uploadImageToFirebaseStorage = async (files: any): Promise<any> => 
 		
     })
 	console.log("promises", promises);
+	
 	return await Promise.all([promises]);
 	
 };
