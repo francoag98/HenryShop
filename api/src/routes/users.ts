@@ -279,7 +279,7 @@ router.post("/shopping", userValidation, async (req: Request, res: Response) => 
         let p = await Product.findOne({ _id: el.id });
         let copia: any = { ...p };
         arr.push({ id: p.id, name: p.name, rating: p.rating, description: p.description, 
-          price: p.price, total_Price: p.price[p.price.length - 1].valueOf() * el.quantity, image: p.image,
+          price: p.price.at(-1), total_Price: p.price[p.price.length - 1].valueOf() * el.quantity, image: p.image,
           category: p.category, quantity: el.quantity, color: el.color, variante: el.variante });
       }
       return arr;
