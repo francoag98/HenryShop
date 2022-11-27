@@ -133,14 +133,24 @@ router.get("/isAdmin", adminValidation, async (req: Request, res: Response) => {
     res.status(401).send("No admin");
   }
 });
-router.get("/admin/allusers", async (req: Request, res: Response) => {
-  const { page } = req.query
 
+
+router.get("/admin/allusers", async (req: Request, res: Response) => {
+  
+  const page: number = Number(req.query.page);
+  const username: string = String(req.query.username);
+  const order: string = String(req.query.order);
+  const property: string = String(req.query.property);
+    console.log("queryalluser", req.query);
   try {
-    var result;
-    var y: number;
+    
+    let result: any;
+    let number: number= 1;
+    let y: number;
     page ? y = +page : y = 0;
-    page ? result = await getAllUser(y) : result = await getAllUser(1);
+    
+    result = await getAllUser(y, username, order, property) 
+    
     result !== null
       ? res.status(200).json(result)
       : res.status(404).json({ error_message: "Ningún usuario encontrado" });
@@ -148,6 +158,8 @@ router.get("/admin/allusers", async (req: Request, res: Response) => {
     res.status(500).json({ error_message: error.message });
   }
 });
+
+
 router.put('/admin/users/:id', adminValidation, async (req: Request, res: Response) => {
   try {
     const { id } = req.params
@@ -248,6 +260,16 @@ router.get(
   }
 );
 
+// router.get("/", async (req: Request, res: Response) => {
+//       try {
+//         const {order} = req.query;
+//         console.log(typeof order);
+//         console.log(order);
+//         const result = await userFilters(order);
+//       } catch (error: any) {
+//         res.status(500).send({ message: error.message})
+//       }
+// });
 
 
 

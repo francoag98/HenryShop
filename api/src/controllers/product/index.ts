@@ -3,10 +3,180 @@ import { Product } from "../../models/Product";
 
 const pageSize = 5;
 
-export const getAllProductsAdmin = async () => {
-  const result = await Product.paginate({}, { limit: 50 });
-  return result;
+export const getAllProductsAdmin = async (
+  page: number,
+  category?: string,
+  name?: string,
+  property?: string,
+  order?: string
+) => {
+  console.log( page, category, name, property, order);
+  if (
+    category === "undefined" &&
+    name !== "undefined" &&
+    property !== "undefined" &&
+    order !== "undefined"
+  ) {
+    
+    const resultName = await Product.paginate(
+      {
+        name: new RegExp(`${name}`, "i"),
+      },
+      {
+        limit: pageSize,
+        page: page,
+        sort: { [`${property}`]: order },
+      }
+    );
+    return resultName;
+  } else if (
+    category !== "undefined" &&
+    name === "undefined" &&
+    property !== "undefined" &&
+    order !== "undefined"
+  ) {
+    
+    const resultCategory = await Product.paginate(
+      {
+        category: new RegExp(`${category}`, "i"),
+      },
+      {
+        limit: pageSize,
+        page: page,
+        sort: { [`${property}`]: order },
+      }
+    );
+    return resultCategory;
+  } else if (
+    category === "undefined" &&
+    name === "undefined" &&
+    property !== "undefined" &&
+    order !== "undefined"
+  ) {
+    const resultCategory = await Product.paginate(
+      {
+        
+      },
+      {
+        limit: pageSize,
+        page: page,
+        sort: { [`${property}`]: order },
+      }
+    );
+    return resultCategory;
+  } else if (
+    category !== "undefined" &&
+    name !== "undefined" &&
+    (property === "undefined" || order === "undefined")
+  ) {
+    
+    const resultCategory = await Product.paginate(
+      {
+        category: new RegExp(`${category}`, "i"),
+        name: new RegExp(`${name}`, "i"),
+      },
+      {
+        limit: pageSize,
+        page: page,
+      }
+    );
+    return resultCategory;
+  } else if (
+    category === "undefined" &&
+    name === "undefined" &&
+    (property === "undefined" || order === "undefined")
+  ) {
+    const resultCategory = Product.paginate(
+      {
+       
+      },
+      {
+        limit: pageSize,
+        page: page,
+      }
+    );;
+    return resultCategory;
+  } else if (
+    category === "undefined" &&
+    name !== "undefined" &&
+    (property === "undefined" || order === "undefined")
+  ) {
+    const resultCategory = await Product.paginate(
+      {
+        name: new RegExp(`${name}`, "i"),
+      },
+      {
+        limit: pageSize,
+        page: page,
+      }
+    );
+    return resultCategory;
+  } else if (
+    category !== "undefined" &&
+    name === "undefined" &&
+    (property === "undefined" || order === "undefined")
+  ) {
+    const resultCategory = await Product.paginate(
+      {
+        category: new RegExp(`${category}`, "i"),
+      },
+      {
+        limit: pageSize,
+        page: page,
+      }
+    );
+    return resultCategory;
+  } else if (
+    category === "undefined" &&
+    name !== "undefined" &&
+    (property === "undefined" || order === "undefined")
+  ) {
+    const resultCategory = await Product.paginate(
+      {
+        name: new RegExp(`${name}`, "i"),
+      },
+      {
+        limit: pageSize,
+        page: page,
+      }
+    );
+    return resultCategory;
+  } 
+  
+  else if (
+    category === "undefined" &&
+    name === "undefined" &&
+    property === "undefined" && order !== "undefined"
+  ) {
+    const resultCategory = await Product.paginate(
+      {
+       
+      },
+      {
+        limit: pageSize,
+        page: page,
+        sort: { name: order },
+      }
+    );
+    return resultCategory;
+  }
+
+  else {
+    const resultAll = await Product.paginate(
+      {
+        category: new RegExp(`${category}`, "i"),
+        name: new RegExp(`${name}`, "i"),
+      },
+      {
+        limit: pageSize,
+        page: page,
+        sort: { [`${property}`]: order },
+      }
+    );
+    return resultAll;
+  }
 };
+
 
 export const findByName = async (name: string) => {
   const result = await Product.paginate({

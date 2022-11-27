@@ -24,6 +24,8 @@ export interface Payments {
     userPages: Number;
     payments: Array<Payments>;
     paymentsPages: Number;
+    filters: Object;
+    error: string;
   }
 //Definimos el estado
 const initialState: AdminUserState = {
@@ -42,6 +44,12 @@ const initialState: AdminUserState = {
   userPages: 0,
   payments: [],
   paymentsPages: 0,
+  filters: {
+    username: "",
+    property: "",
+    order: "",
+  },
+  error: "",
 };
 
 //PORCION DE ESTADO GLOBAL
@@ -55,6 +63,10 @@ const AdminSlice = createSlice({
     getUsersList(state, action: PayloadAction<Array<AdminUserDetail>>){
       state.usersList = action.payload;
     },
+    clearUsersList(state) {
+      state.error = "";
+      state.usersList = [];
+    },
     getUsersPages(state, action: PayloadAction<Number>){
        state.userPages = action.payload;
     },
@@ -64,9 +76,12 @@ const AdminSlice = createSlice({
     getPaymentsPages(state, action: PayloadAction<Number>){
       state.paymentsPages = action.payload;
    },
+   setFiltersUsers(state, action: PayloadAction<Object>) {
+    state.filters = action.payload;
+  },
   },
 });
 
 export default AdminSlice.reducer;
-export const { getUsersList, getUsersPages, getPayments, getPaymentsPages } =
+export const { getUsersList, getUsersPages, getPayments,setFiltersUsers, getPaymentsPages, clearUsersList} =
   AdminSlice.actions;

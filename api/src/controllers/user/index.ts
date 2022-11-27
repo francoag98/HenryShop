@@ -1,6 +1,7 @@
 import { user } from "../../Types";
 import { User } from "../../models/User";
 import { GoogleUser } from "../../models/googleUser";
+import { Query } from "mongoose";
 const jwt = require("jsonwebtoken");
 
 export const addNewUser = async (user: user) => {
@@ -25,11 +26,88 @@ export const addNewUser = async (user: user) => {
 const pageSize = 10;
 
 
-export const getAllUser = async (page: number ) => {
+export const getAllUser = async (y:number, username?: string, order?: string, property?: string, ) => {
+ console.log("controler", y, username, order,property)
+ console.log(username.length);
+  //   const resultUsers = await User.paginate( { page: y })
+  // return resultUsers;
+  
+  if(
+    username !== "undefined"  &&
+    order !== "undefined") {
+      const resultName = await User.paginate(
+        {
+          name: new RegExp(`${username}`, "i")
+        }, 
+        {
+          limit: pageSize,
+          page: y,
+          sort: { [`${property}`]: order },
+        }
+        );
 
-    const resultUsers = await User.paginate( { page: page })
-  return resultUsers;
+    return resultName;
+  }
+
+  else if(
+    username !== "undefined" &&
+    order === "undefined") {
+      const resultName = await User.paginate(
+        {
+          name: new RegExp(`${username}`, "i")
+        }, 
+        {
+          limit: pageSize,
+          page: y,
+        }
+        );
+
+    return resultName;
+  }
+
+  else if(
+    username === "undefined"  &&
+    order !== "undefined") {
+      const resultName = await User.paginate(
+        {
+        
+        }, 
+        {
+          limit: pageSize,
+          page: y,
+          sort: {[`${property}`]: order },
+        }
+        );
+
+    return resultName;
+  }
+
+  else if (
+    username === "undefined"&& order === "undefined") {
+      const resultName = await User.paginate({}, 
+        {
+        limit: pageSize,
+        page: y,
+        sort: {[`${property}`]: order },
+    });
+    return resultName;
+  }
+  
+  else {
+    const resultAll = await User.paginate(
+      {
+        
+      },
+      {
+        limit: pageSize,
+        page: y,
+        sort: {[`${property}`]: order },
+      }
+    );
+    return resultAll;
+  }
 };
+
 
 export const getUser = async (username: string) => {
   let resultUser = null;
@@ -99,4 +177,9 @@ export const putSwitchUserDelete = async (id: string) => {
 export const deleteUserByID = async (id: string) => {
   const findIdUser = await User.findOneAndUpdate({ _id: id}, {deleted: true})
   return findIdUser
+}
+
+export const userFilters = async ({order}:any) => {
+
+  const result = await User.find({})
 }

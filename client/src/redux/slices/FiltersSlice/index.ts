@@ -10,6 +10,7 @@ export interface Filters {
 
 export interface FiltersState {
   filters: Filters;
+  filtersAdmin: Filters;
 }
 
 //Definimos el estado
@@ -20,6 +21,12 @@ const initialState: FiltersState = {
     property: "",
     order: "",
   },
+  filtersAdmin: {
+    name: "",
+    category: "",
+    property: "",
+    order: "",
+  }
 };
 
 //PORCION DE ESTADO GLOBAL
@@ -30,8 +37,11 @@ const FiltersSlice = createSlice({
     setFilters(state, action: PayloadAction<Filters>) {
       state.filters = action.payload;
     },
+    setFiltersAdmin(state, action: PayloadAction<Filters>) {
+      state.filtersAdmin = action.payload;
+    },
   },
 });
 
 export default FiltersSlice.reducer;
-export const { setFilters } = FiltersSlice.actions;
+export const { setFilters, setFiltersAdmin, } = FiltersSlice.actions;
