@@ -35,6 +35,9 @@ const ShoppingCards = () => {
   const total = shopsByUser.map(e => {
     return shoppingList.filter(a => a.idShop === e.toString())
    })
+
+   console.log(shoppingList);
+   
        
   return (
     <div className="flex w-full bg-white">
