@@ -6,6 +6,7 @@ import { setUserData } from "../../../redux/slices/UserSlice/UserActions";
 import { useAppDispatch, useAppSelector } from "../../../hooks";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
+import Header from "../../Header";
 
 const ShoppingCards = () => {
   const dispatch = useAppDispatch();
@@ -38,10 +39,8 @@ const ShoppingCards = () => {
    })
   console.log(total)
   return (
-    <div >
-      <div className="flex justify-end">
-      <Link to={"/"}><button className="flex justify-end  mt-5 bg-slate-400 hover:bg-slate-700 text-white font-bold py-2 px-4 rounded">HOME</button></Link>
-      </div>
+    <div className="w-full">
+      <Header/>
     <div className="flex w-full justify-center">
       <div>
       {
@@ -50,7 +49,7 @@ const ShoppingCards = () => {
               <div key={index} className = "my-3 w-[55rem] border border--slate-500 rounded-xl shadow-lg">
                 <div className = "flex justify-between bg-slate-200 h-20 rounded-t-xl">
                 <div className = "flex w-2/3 bg-slate-400 rounded-tl-xl">
-                  <div className="px-20 pt-4"> FECHA DE PEDIDO: <p>{shoppingDate.map(e => e.id === producto[0].idShop 
+                  <div className="px-20 pt-4"> FECHA DE PEDIDO: <p>{shoppingDate.map(e => e.id === producto[0]?.idShop 
                   ? e.createdAt.substring(0,10)
                   : "" )}</p>
                 </div>
@@ -68,8 +67,8 @@ const ShoppingCards = () => {
             )
           
         ) : (
-            <div>
-              <p>No se encontraron productos</p>
+            <div className="text-xl pt-40">
+              <p>Aún no tienes compras registradas... <p className="text-3xl pt-10 font-medium">...Anímate, los productos están geniales!</p></p>
             </div>
           )}
       </div>

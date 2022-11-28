@@ -11,36 +11,22 @@ import 'react-dropdown/style.css';
 import {getCategories} from "../../redux/slices/ProductSlice/productActions";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import ListDisplayer from "../ListDisplayer";
+import { variant } from '../../Types';
 
 const variants = { XS: "XS", S: "S", M: "M", L: "L", XL: "XL", XXL: "XXL" };
 const colors = { Blanco: "Blanco", Negro: "Negro" };
 interface formData {
   name: string;
-  rating: number;
   description: string;
   price: number;
   image: string;
   category: string;
-  colors: Array<object>;
-  variants: Array<object>;
-}
-
-interface variant{
-  value:string;
-  quantity:number;
 }
 
 const schema = yup
   .object()
   .shape({
     name: yup.string().required("Debes agregar el nombre del producto"),
-    rating: yup
-      .number()
-      .typeError("El rating debe ser un número")
-      .min(0, "el número debe ser mayor o igual a 0")
-      .max(5, "el número debe ser menor o igual a 5")
-      .nullable()
-      .transform((v, o) => (o === "" ? null : v)),
     description: yup
       .string()
       .min(1, "Se requiere por lo menos un caracter")
@@ -55,24 +41,6 @@ const schema = yup
       return value && value.length;
     }),
     category: yup.string().required("Recuerda agregar la categoría"),
-    colors: yup
-      .array()
-      .of(yup.object().shape(
-          {
-            quantity: yup.number(),
-            value: yup.string()
-          }
-        ))
-      .nullable(),
-    variants: yup
-      .array()
-      .of(yup.object().shape(
-          {
-            quantity: yup.number(),
-            value: yup.string()
-          }
-        ))
-      .nullable(),
   })
   .required();
 
@@ -87,13 +55,10 @@ const PostForm = () => {
   const navigate = useNavigate();
   const initialForm: formData = {
     name: "",
-    rating: -1,
     description: "",
     price: -1,
     image: "",
     category: "",
-    colors: [{}],
-    variants: [{}],
   };
 
   const [variantsInput, setVariantsInput] = useState<variant[]>([]);
@@ -165,11 +130,9 @@ const PostForm = () => {
 
   const submitCall = async ({
     name,
-    rating,
     description,
     price,
     category,
-    colors,
   }:formData) => {
     let backData = process.env.REACT_APP_BACKEND_URL;
     imgUrl =  await uploadImageToFirebaseStorage(file);
@@ -179,12 +142,10 @@ const PostForm = () => {
       axios
         .post(`${backData}/products`, {
           name,
-          rating,
           description,
           price,
           image: imgUrl,
           category,
-          colors,
           variants: variantsInput,
           variantName,
 
@@ -199,6 +160,7 @@ const PostForm = () => {
 
   const handleCategories = (event:React.ChangeEvent<HTMLSelectElement>) => {
     if(event.target.value === 'all') return ;
+
     setInput({...input, category: event.target.value}); 
   }
 
@@ -225,19 +187,6 @@ const PostForm = () => {
         </div>
         {errors?.name && (
           <p className="text-red-600 font-bold">{errors.name.message}</p>
-        )}
-      </div>
-
-      <div className="mb-3.5 w-full">
-        <input
-          {...register("rating")}
-          id="rating"
-          type="text"
-          placeholder="Rating..."
-          className="border border-black border-solid w-full rounded-2xl pl-2 py-1"
-        />
-        {errors?.rating && (
-          <p className="text-red-600 font-bold">{errors.rating.message}</p>
         )}
       </div>
 

@@ -8,7 +8,6 @@ export const Failure = () => {
 
     return (
         <div className="w-full flex flex-col items-center h-screen">
-            <Header/>
             <div className="mt-32 flex flex-col items-center gap-4">
             <img src={henryFull} className="w-64" alt="logoHenry" />
             <h2>Lo sentimos, no se pudo proceder con la compra.</h2>
