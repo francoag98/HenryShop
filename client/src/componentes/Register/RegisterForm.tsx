@@ -14,7 +14,7 @@ import FormSubmittingLoader from "../FormSubmittingLoader";
 const errorStyle =
   "mt-1 text-red-600 font-bold bg-red-100 p-1 border-2 border-red-700 border-solid rounded-sm";
 const inputStyle =
-  "border border-black border-solid w-full rounded-sm pl-2 py-1";
+  "border border-black border-solid w-64 min-[800px]:w-96 min-[700px]:w-96 rounded-sm pl-2 py-1";
 interface IFormData {
   username: string;
   name: string;

@@ -66,12 +66,12 @@ const Register = () => {
       <div className="xl:w-screen xl:mb-72 ml-9 2xl:w-screen">
         <img className="xl:p-6 h-0 w-0 sm:h-0 sm:w-0 xl:w-auto xl:h-80 xl:mt-80 " src={henryShop} alt="Logo_henry" />
       </div>
-      <div className="flex flex-col items-center xl:w-screen xl:h-full bg-[#FFFDE7] 2xl:w-screen">
-        <h4 className="mt-20 sm:mt-42 lg:mt-36 xl:mt-36 2xl:mt-32">Bienvenido a</h4>
+      <div className="flex flex-col items-center xl:w-screen xl:h-screen bg-[#FFFDE7] 2xl:w-screen">
+        <h4 className="mt-8 sm:mt-42 lg:mt-36 xl:mt-16 max-[800px]:mt-20 2xl:mt-32">Bienvenido a</h4>
         <img src={henryImg} alt="Logo de Henry" className="w-3/4 xl:p-2" />
         <h3 className="p-2">Registrate</h3>
           <RegisterForm />
-        <div className="xl:mb-60 xl:flex xl:flex-col">
+        <div className="mb-10 xl:mb-60 xl:flex xl:flex-col">
           <button className="p-2 flex flex-row bg-white border-black border mb-4 rounded-sm shadow-md" onClick={googleAuth}>
            <img className= "w-6 h-6 mr-2"src={googleLogo} alt="" /> <p>Inicia sesion con Google</p>
           </button>

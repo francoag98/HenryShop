@@ -55,7 +55,7 @@ const ProductCard: React.FC<CardProps> = ({ product }: CardProps) => {
         <>
           <Link to={`/products/${product.id}`}>
             <img
-              className="rounded-tl-md rounded-tr-md w-64 h-72  border-b-2 border-solid border-gray-200 hover:scale-105 hover:duration-300  duration-300 hover:border-none "
+              className="rounded-tl-md rounded-tr-md w-64 border-b-2 border-solid border-gray-200 hover:scale-105 hover:duration-300 h-72 duration-300 hover:border-none "
               src={product.image}
               alt={`${product.name}_image`}
               loading="lazy"

@@ -32,7 +32,6 @@ const ShoppingCards = () => {
 
   const getShopsByUser = () => {
     const result = user?.hasOwnProperty("shopping")? user.shopping:[];
-    console.log(result);
     setShopsByUser(result);
   }
   const getTotal = () => {

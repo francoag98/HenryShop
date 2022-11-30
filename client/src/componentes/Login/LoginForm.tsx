@@ -9,7 +9,7 @@ import FormSubmittingLoader from "../FormSubmittingLoader";
 const errorStyle =
   "mt-1 text-red-600 font-bold bg-red-100 p-1 border-2 border-red-700 border-solid rounded-2xl";
 const inputStyle =
-  "border border-black border-solid w-full rounded-sm pl-2 py-1";
+  "border border-black border-solid w-64 min-[800px]:w-96 min-[700px]:w-96 rounded-sm pl-2 py-1";
 
 interface IFormData {
   username: string;
@@ -66,9 +66,9 @@ const LoginForm = () => {
   return (
     <form
       onSubmit={handlerSubmit}
-      className="flex justify-center flex-col items-center w-9/12 mt-6 mb-10"
+      className="flex justify-center flex-col items-center w-9/12 mt-6 mb-6"
     >
-      <div className="mb-3.5 w-full">
+      <div className="mb-3.5">
         <input
           type={"text"}
           placeholder="Nombre de Usuario"
@@ -80,7 +80,7 @@ const LoginForm = () => {
         )}
       </div>
 
-      <div className="mb-3.5 w-full">
+      <div className="mb-3.5">
         <input
           type={"password"}
           placeholder="Contraseña"
@@ -92,7 +92,7 @@ const LoginForm = () => {
         )}
       </div>
 
-      <div className="flex self-start">
+      <div className="flex max-[800px]:self-start max-[800px]:ml-20 max-[1024px]:self-start 2xl:mr-64 2xl:ml-12 xl:ml-10 mb-4">
         <input
           className="xl:w-4 xl:h-4 xl:mt-1"
           type={"checkbox"}

@@ -24,14 +24,14 @@ module.exports = async (req: any, res: any, next: any) => {
     const decodedToken = jwt.verify(token, process.env.SECRETKEY);
     let origin = '';
     if (decodedToken) {
-      var userDefault = await User.findOne({ _id: decodedToken.id });
+      var userDefault = await User.findById(decodedToken.id );
       origin = 'default';
     }
-    if(!userDefault){
+    else if(!userDefault){
       var googleUser = await GoogleUser.findOne({ email: decodedToken.email });
       origin = "google";
     }
-    if(!googleUser){
+    else if(!googleUser){
       var githubUser = await GithubUser.findOne({ username: decodedToken.username });
       origin = "github";
     }
@@ -40,12 +40,11 @@ module.exports = async (req: any, res: any, next: any) => {
     }
     let shop: any;
     if (origin === "default") shop = await getDateShop(userDefault.username as string, origin);
-    if (origin === "google") shop = await getDateShop(googleUser.email as string, origin);
-    if (origin== "github") shop = await getDateShop(githubUser.username as string, origin)
+    if (origin === "google") shop = await getDateShop(googleUser?.email as string, origin);
+    if (origin== "github") shop = await getDateShop(githubUser?.username as string, origin)
     let buyed = false;
     shop.forEach((sh:any) => {
       sh.products.forEach((pr: any) => {
-        console.log('product buyed: ', pr.id)
         if (pr.id === productId) {
           buyed = true;
         }
