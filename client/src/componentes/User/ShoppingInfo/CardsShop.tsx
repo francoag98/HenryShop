@@ -93,7 +93,7 @@ const ShoppingCards = () => {
       dispatch(getDateShopping(session.username, session.origin));
     }
   }, [shopsByUser]);
-
+console.log(shoppingList)
 
   return (
     <div className="w-full">
