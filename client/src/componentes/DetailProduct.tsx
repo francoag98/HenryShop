@@ -11,6 +11,7 @@ import { clearProductDetail } from "../redux/slices/ProductSlice";
 
 export const DetailProduct: React.FunctionComponent = () => {
   const producto = useAppSelector((state) => state.products.productDetail);
+  const [added, setAdded] = useState(false);
   const Products = useAppSelector((state) => state.products.productList);
   const { id } = useParams();
   const dispatch = useAppDispatch();
@@ -47,7 +48,8 @@ export const DetailProduct: React.FunctionComponent = () => {
     e.preventDefault();
     addToCart(id!, quantity, variante);
     setQuantity(1);
-    alert("Producto agragado al carrito");
+    setAdded(true);
+    setTimeout(() => setAdded(false), 3000);
   }
 
   return (
@@ -126,6 +128,7 @@ export const DetailProduct: React.FunctionComponent = () => {
               >
                 Agregar a carrito
               </button>
+              {added?<p className = "bg-green-300 text-green-700 rounded-sm border border-green-700 border-solid mt-4 py-4 font-bold">Se agregó al carrito.</p>:null}
             </div>
             <hr />
             <p className="text-left ml-4 mt-6 font-bold">Descripción:</p>

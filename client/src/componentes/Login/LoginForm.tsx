@@ -92,7 +92,7 @@ const LoginForm = () => {
         )}
       </div>
 
-      <div className="flex max-[800px]:self-start max-[800px]:ml-20 max-[1024px]:self-start 2xl:mr-64 2xl:ml-12 xl:ml-10 mb-4">
+      {/* <div className="flex max-[800px]:self-start max-[800px]:ml-20 max-[1024px]:self-start min-[1280px]:self-start 2xl:mr-64 2xl:ml-12 xl:ml-10 mb-4">
         <input
           className="xl:w-4 xl:h-4 xl:mt-1"
           type={"checkbox"}
@@ -101,7 +101,7 @@ const LoginForm = () => {
           onChange={() => setRemember(!remember)}
         />{" "}
         <p className="xl:mb-1 ml-1">Recordar mi sesión</p>
-      </div>
+      </div> */}
       {result.length ? <p className={errorStyle}>{result}</p> : null}
       {submitting ? (
         <FormSubmittingLoader />

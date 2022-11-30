@@ -50,7 +50,7 @@ const ProductCard: React.FC<CardProps> = ({ product }: CardProps) => {
   }
 
   return (
-    <div className="flex flex-col border border-gray-200 bg-white shadow-lg  delay-75 hover:bg-yellow hover:scale-105 hover:duration-300  duration-300 rounded-md hover:cursor-pointer">
+    <div className="flex flex-col border border-gray-200 bg-white shadow-lg  delay-75 hover:bg-yellow hover:scale-105 hover:duration-300  duration-300 rounded-md hover:cursor-pointer mb-4">
       {product && (
         <>
           <Link to={`/products/${product.id}`}>

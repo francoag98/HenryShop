@@ -95,7 +95,6 @@ routes.get(
   "/google/callback",
   passport.authenticate("google", {
     failureRedirect: "/login/failed",
-    successRedirect: "/googleusers/login/success",
   }),
   (req: Request, res: Response) => {
     try {
@@ -119,7 +118,7 @@ routes.get(
         typeof newUserObj !== null
           ? addNewGoogleUser(newUserObj as googleUser)
           : null;
-      res.redirect(`${CLIENT_URL}/googleusers/login/success`);
+      res.redirect(`/googleusers/login/success`);
     } catch (error: any) {
       console.log(error.message);
     }
