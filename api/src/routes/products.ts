@@ -21,6 +21,8 @@ import { GithubUser } from "../models/githubUser";
 
 const routes = Router();
 
+const CLIENT_URL = process.env.CLIENT_URL;
+
 //TODOS LOS GET
 
 routes.get("/admin", async (req: Request, res: Response) => {
@@ -130,6 +132,7 @@ routes.post("/payment", userValidation, async (req: Request, res: Response) => {
     };
 
     const productos = await productAndQuantity(productosForFind);
+    console.log(CLIENT_URL);
     if (productos && user) {
       let preference = {
         items: productos.map((el: any) => {
@@ -145,9 +148,9 @@ routes.post("/payment", userValidation, async (req: Request, res: Response) => {
           };
         }),
         back_urls: {
-          success: "http://localhost:3000/success",
-          failure: "http://localhost:3000/failure",
-          pending: "http://localhost:3000/failure",
+          success: `${CLIENT_URL}/success`,
+          failure: `${CLIENT_URL}/failure`,
+          pending: `${CLIENT_URL}/failure`,
         },
         auto_return: "approved",
         binary_mode: true,
