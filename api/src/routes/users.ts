@@ -125,7 +125,7 @@ router.post("/login", async (req: Request, res: Response) => {
   }else if(user?.deleted){
     return res.status(400).json({error_message: "Cuenta deshabilitada"});
   } else {
-    const userForToken = { id: user.id, username: user.username };
+    const userForToken = { id: user.id, username: user.username, origin: "default" };
     const token = jwt.sign(userForToken, process.env.SECRETKEY);
     return res
       .status(200)

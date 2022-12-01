@@ -41,7 +41,7 @@ routes.get(
     };
     const result = await addNewGithubUser(newUserObj);
     const user = result ? result : { username: "", email: "", id: "" };
-    const userForToken = { id: user.id, username: user.username };
+    const userForToken = { id: user.id, username: user.username, origin: "github" };
     const token = jwt.sign(userForToken, process.env.SECRETKEY);
     const response = {
       error: false,

@@ -72,9 +72,6 @@ const Login = () => {
         <h3 className="p-2">Inicia Sesión</h3>
           <LoginForm />
         <div className="mb-10 xl:mb-60 xl:flex xl:flex-col">
-          <button className="p-2 flex flex-row bg-white border-black border mb-4 rounded-sm shadow-md" onClick={googleAuth}>
-           <img className= "w-6 h-6 mr-2"src={googleLogo} alt="" /> <p>Inicia sesion con Google</p>
-          </button>
           <button className="p-2 w-full flex flex-row bg-white border-black border rounded-sm shadow-md" onClick={gitAuth}>
             <img className="w-6 h-6 mr-2" src={githubLogo} alt="" /> <p className="w-auto">Inicia sesion GitHub</p>
           </button>
