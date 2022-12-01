@@ -15,7 +15,8 @@ export const productSchema = new Schema({
     review: { type: Schema.Types.ObjectId, ref: 'Review' }
   }],
   variantName: String,
-  variants: Array<variant>
+  variants: Array<variant>,
+  currentPrice: {type: Number},
 });
 
 // modifica el _id de lo que te devuelve la base de datos por id, ademas remueve el __v
@@ -34,7 +35,9 @@ productSchema.set('toObject', { virtuals: true })
 productSchema.virtual('rating').get(function () {
   if(!this.reviews.length) return 0
   const sumRatings = this.reviews.reduce((acc, rev) => {
+    console.log(rev);
     const aux = rev.review as unknown as elTipo;
+    console.log(aux);
     const rat = aux.rating as number
     return acc + rat
   }, 0) as number

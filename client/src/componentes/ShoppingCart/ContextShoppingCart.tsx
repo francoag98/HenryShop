@@ -113,7 +113,6 @@ ShoppingCartProviderProps){
             }
             })
     }
-    console.log(cartItems)
 
     return (
         <ShoppingCartContex.Provider value={{getItemQuantity, increaseCartQuantity, decreaseCartQuantity, removeFromCart, openCart, closeCart, addToCart, setEmptyCart ,cartItems, cartQuantity}}>

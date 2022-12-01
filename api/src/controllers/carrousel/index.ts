@@ -17,10 +17,11 @@ export const bestRating = async () => {
 
 export const bestOffers = async () => {
   const call = await Product.find();
-  const filtered = call.filter((el: product) => el.price.length > 1);
+  const filtered = call.filter((el: any) => el.price.length > 1);
   const filtered2 = filtered.filter(
-    (el: product) =>
+    (el: any) =>
       el.price[el.price.length - 1] < el.price[el.price.length - 2]
+      && el.deleted === false
   );
   let result = filtered2
     .map((el: any) => {

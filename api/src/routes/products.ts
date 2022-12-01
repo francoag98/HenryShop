@@ -78,7 +78,6 @@ routes.get("/:id", async (req: Request, res: Response) => {
         .json({ error_message: "No se encontro el producto con ese id" });
     } else {
       await result.populate("reviews");
-      console.log("producto ", result);
       res.status(200).send(result);
     }
   } catch (error: any) {
@@ -132,7 +131,6 @@ routes.post("/payment", userValidation, async (req: Request, res: Response) => {
     };
 
     const productos = await productAndQuantity(productosForFind);
-    console.log(CLIENT_URL);
     if (productos && user) {
       let preference = {
         items: productos.map((el: any) => {

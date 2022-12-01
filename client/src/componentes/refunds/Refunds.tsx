@@ -57,7 +57,6 @@ export const Refunds = () => {
             })
             .then((res:any) => {
               alert("Formulario de devolucion creado");
-              console.log(res)
               navigate("/formcreated")
               //agregar navigate a una pagina que diga "el form fue creado con un boton para el homey otro para hacer otra devolu"
             }

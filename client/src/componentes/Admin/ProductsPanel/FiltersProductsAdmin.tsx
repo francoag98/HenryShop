@@ -24,7 +24,6 @@ const FiltersProductsAdmin = () => {
   const changeHandler = (e: any) => {
     const name = e.currentTarget.id;
     const value = e.currentTarget.selectedOptions[0].value;
-    console.log(name, value);
     dispatch(setFiltersActionAdmin(page, { ...filters, [name]: value }));
   };
 
@@ -60,7 +59,6 @@ const FiltersProductsAdmin = () => {
           className="p-2 text-base border-2 "
           id="property"
           onChange={(e) => {
-            console.log(e);
             changeHandler(e);
           }}
         >
@@ -78,7 +76,6 @@ const FiltersProductsAdmin = () => {
           className="p-2 text-base "
           id="order"
           onChange={(e) => {
-            console.log(e);
             changeHandler(e);
           }}
         >

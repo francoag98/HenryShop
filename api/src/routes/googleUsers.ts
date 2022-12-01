@@ -100,7 +100,6 @@ routes.get(
     try {
       let newUser: string = JSON.stringify(req.user);
       let newUser2: any = JSON.parse(newUser) as object;
-      console.log(newUser2.emails[0].value);
       const newUserObj: googleUser | null =
         typeof newUser2 === "object"
           ? {

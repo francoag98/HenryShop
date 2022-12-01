@@ -44,20 +44,16 @@ export const setFiltersActionUsers = ( page:Number, obj: any) => (dispatch: AppD
 export const getAllPayments = (page: Number, filters: any) => (dispatch: AppDispatch) => {
   dispatch(setLoading(true));
   dispatch(getClearPayments());
-  console.log("filters", filters)
   let url: string = filters.id_compra ? `${URL_BACK_DEV}/shop/adminusers?page=${page}&id=${filters.id_compra}` : `${URL_BACK_DEV}/shop/adminusers?page=${page}`;
   
-  console.log("urlact", url)
     axios.get(url).then(({ data }) => {
         dispatch(getPayments(data.docs));
         dispatch(getPaymentsPages(data.totalPages));
-        console.log("adios", data.docs);
     })
 
 };
 
 export const setFiltersActionPayment = ( obj: any) => (dispatch: AppDispatch) => {
-  console.log("filters2", obj)
   dispatch(getPaymentsPages(1));
   dispatch(setFiltersPayment(obj));
   dispatch(getAllPayments(1, obj));
@@ -76,7 +72,6 @@ export const getPaymentById = (id: string | undefined) => (dispatch: AppDispatch
   url = `${URL_BACK_DEV}/shop/${id}`
   axios.get(url).then(({ data }) => {
       dispatch(getPaymentDetail(data))
-      console.log( data )
   })
 }
 

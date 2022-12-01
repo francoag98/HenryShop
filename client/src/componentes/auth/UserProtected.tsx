@@ -14,20 +14,16 @@ const UserProtected = ({ children }: IProtectedProps) => {
 
   useEffect(() => {
     const session = window.localStorage.getItem("userSession");
-    console.log(session)
     setDisplay(false);
     if (session) {
-      console.log('User protected')
       axiosGetCall("/users/isUser")
         .then(() => {
           setDisplay(true);
         })
         .catch(() => {
-          console.log('bye no user')
           navigate("/unauthorized");
         });
     } else {
-      console.log('bye no user 2')
       navigate("/unauthorized");
     }
   }, [setDisplay, navigate, children]);

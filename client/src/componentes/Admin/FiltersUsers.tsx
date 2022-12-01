@@ -16,7 +16,6 @@ const FiltersUsers = () => {
     e.preventDefault()
     const name = e.currentTarget.id;
     const value = e.currentTarget.selectedOptions[0].value;
-    console.log(name, value);
     dispatch(setFiltersActionUsers(page, { ...filters, [name]: value }));
   };
 
@@ -38,7 +37,6 @@ const FiltersUsers = () => {
           className="p-2 text-base "
           id="order"
           onChange={(e) => {
-            console.log(e);
             changeHandler(e);
           }}
         >

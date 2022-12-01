@@ -14,7 +14,6 @@ export const addNewGoogleUser = async ({
     return new Error("incomplete information");
   }
   if (googleUserFind) {
-    console.log("este es el error");
     return new Error("user already exists");
   } else {
     const result = await GoogleUser.create({ name, email, googleId });

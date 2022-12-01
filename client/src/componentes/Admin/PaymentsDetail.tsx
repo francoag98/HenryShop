@@ -13,7 +13,6 @@ const PaymentsDetail = () => {
     useEffect(()=>{
         dispatch(getPaymentById(id))
     }, [])
-    console.log(id)
     // return (
     //     <div className="flex flex-col w-full">
     //     <Header />

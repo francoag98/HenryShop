@@ -24,7 +24,6 @@ const MenuPanel = () => {
           `${REACT_APP_BACKEND_URL}/users/getuser/${token?.username}`
         );
         SetUserProps(result.data.name);
-        console.log(result.data)
       };
  let arraylado = ["0", "5", "10", "20"];
 //     let cantidad = 0;
@@ -54,7 +53,7 @@ const MenuPanel = () => {
 //   }, [currentSide]);
 //   console.log(arraylado[currentSide])
     return (
-        <div className='invisible xl:visible flex flex-col h-screen bg-slate-700 flex-start justify-start xl:items-center text-white text-bold p-0 h-0 w-0 xl:h-screen xl:w-auto'>
+        <div className='invisible xl:visible rounded-br-xl flex flex-col h-screen bg-slate-700 flex-start justify-start xl:items-center text-white text-bold p-0 h-0 w-0 xl:h-auto xl:pb-4 xl:w-auto'>
                <div className={`relative flex flex-col items-center xl:px-4 xl:pt-4 xl:rounded-full xl:border-2 xl:border-yellow xl:border-opacity-80 xl:mt-4 xl:shadow-xl`} >
                  <BiUser className='xl:h-12 xl:w-12'/>
                  <h5 className='mb-4'>{userProps}</h5>

@@ -22,7 +22,7 @@ export const mailRefund = (purchase_id: string, product_name: string, buyer_name
     from: `Remitente`,
     to: "soyhenryshop@gmail.com",
     subject: `Formulario de devolución`,
-    text: `Boludos devolviendo cosas:
+    text: `Reconocidos usuarios devolviendo cosas:
       purchase_id: ${purchase_id}, 
       product_name: ${product_name},
       buyer_name: ${buyer_name},

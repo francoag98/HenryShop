@@ -138,7 +138,6 @@ const FormPutProduct = () => {
           variantName,
         })
         .then((res) => {
-          console.log(res);
           alert("Se actualizo el producto");
           navigate("/admin");
         })
@@ -153,7 +152,6 @@ const FormPutProduct = () => {
           variantName,
         })
         .then((res) => {
-          console.log(res);
           alert("Se actualizo el producto");
           navigate("/admin");
         })

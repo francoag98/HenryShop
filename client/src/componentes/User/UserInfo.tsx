@@ -27,7 +27,6 @@ const UserInfo = () => {
           setDisplay(true);
         })
         .catch((e) => {
-          console.log(e)
           navigate("/unauthorized");
         });
     }else if(session.origin === 'google'){
@@ -38,7 +37,6 @@ const UserInfo = () => {
           setDisplay(true);
         })
         .catch((e) => {
-          console.log(e)
           navigate("/unauthorized");
         });
     }else if(session.origin === 'github'){
@@ -49,7 +47,6 @@ const UserInfo = () => {
           setDisplay(true);
         })
         .catch((e) => {
-          console.log(e)
           navigate("/unauthorized");
         });
     }

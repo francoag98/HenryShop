@@ -64,7 +64,6 @@ const ShoppingCards = () => {
       dispatch(getAllShoppingByUser(session.email, session.origin));
     }
     if(session.origin === "github") {
-      console.log('github');
       dispatch(getAllShoppingByUser(session.username, session.origin));
     }
   }, []);

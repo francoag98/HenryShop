@@ -25,7 +25,6 @@ const Filters = () => {
   const changeHandler = (e: any) => {
     const name = e.currentTarget.id;
     const value = e.currentTarget.selectedOptions[0].value;
-    console.log(name, value);
     dispatch(setFiltersAction({ ...filters, [name]: value }));
   };
 
@@ -46,7 +45,7 @@ const Filters = () => {
               onClick={clickHandlerDelete}
               id="renderFiltros"
             >
-              {el.value === "price" && "Precio"}
+              {el.value === "currentPrice" && "Precio"}
               {el.value === "rating" && "Rating"}
               {el.value === "asc" && "Ascendente"}
               {el.value === "desc" && "Descendente"}
@@ -60,7 +59,6 @@ const Filters = () => {
           className="p-2 text-base border-2 "
           id="property"
           onChange={(e) => {
-            console.log(e);
             changeHandler(e);
           }}
         >
@@ -70,7 +68,7 @@ const Filters = () => {
           <option className="text-sm" id="property" value="rating">
             Rating
           </option>
-          <option className="text-sm" id="property" value="price">
+          <option className="text-sm" id="property" value="currentPrice">
             Precio
           </option>
         </select>
@@ -78,7 +76,6 @@ const Filters = () => {
           className="p-2 text-base "
           id="order"
           onChange={(e) => {
-            console.log(e);
             changeHandler(e);
           }}
         >

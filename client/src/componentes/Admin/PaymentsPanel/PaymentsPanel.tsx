@@ -12,7 +12,6 @@ const PaymentsPanel = () => {
   let navigate = useNavigate();
 
   const Payments = useAppSelector((state) => state.admin.payments);
-  console.log("pay", Payments)
   const filters: Object = useAppSelector((state) => state.admin.filtersPayment );
   const paymentPages = useAppSelector((state) => state.admin.paymentsPages);
   const [currentPage, setCurrentPage] = useState(1);
@@ -33,7 +32,6 @@ const PaymentsPanel = () => {
     var y: number = +x;
     setCurrentPage(y);
   };
-  console.log(array)
   return (
     <div className="flex justify-center items-center xl:w-10/12">
       <div className=" mt-8 mb-8 flex flex-col justify-center xl:w-10/12 shadow">

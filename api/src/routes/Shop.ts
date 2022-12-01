@@ -49,10 +49,8 @@ router.get("/adminusers", async (req: Request, res: Response) => {
     
     let result;
     let y: number;
-    console.log("rout", page, id);
     page ? (y = +page) : (y = 1);
     result = await getAllShopAdmin(y, id);
-    console.log("result", result);
      result !== null
       ? res.status(200).json(result)
       : res.status(404).json({ error_message: "Ninguna compra encontrada" });

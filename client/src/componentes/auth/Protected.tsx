@@ -15,18 +15,14 @@ const Protected = ({ children }: IProtectedProps) => {
     const session = window.localStorage.getItem("userSession");
     setDisplay(false)
     if (session) {
-      console.log('checking admin...')
       axiosGetCall('/users/isAdmin')
         .then(() => {
-          console.log('yes admin')
           setDisplay(true);
         })
         .catch(() => {
-          console.log('bye no admin')
           navigate("/");
         });
     }else{
-      console.log('bye no admin 2')
       navigate('/')
     }
   }, [setDisplay, navigate]);

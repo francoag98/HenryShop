@@ -55,7 +55,6 @@ const Pagination = () => {
             <div
               key={page}
               onClick={() => {
-                console.log(filters);
                 setCurrentPage(page);
                 dispatch(getAllProducts(page, filters));
               }}

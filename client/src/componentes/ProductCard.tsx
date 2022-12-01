@@ -48,7 +48,6 @@ const ProductCard: React.FC<CardProps> = ({ product }: CardProps) => {
         input.checked = false
         }*/
   }
-
   return (
     <div className="flex flex-col border border-gray-200 bg-white shadow-lg  delay-75 hover:bg-yellow hover:scale-105 hover:duration-300  duration-300 rounded-md hover:cursor-pointer mb-4">
       {product && (
@@ -61,7 +60,7 @@ const ProductCard: React.FC<CardProps> = ({ product }: CardProps) => {
               loading="lazy"
             />
             <h6 className="pl-2 flex items-start font-medium mt-1 text-2xl ">
-              ${product.price[product.price.length - 1]}
+              ${product.price.at(-1)}
             </h6>
 
             <h5 className="pl-2 mb-4 flex items-start w-64 font-light	 ">
