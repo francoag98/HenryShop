@@ -24,7 +24,7 @@ export interface product {
   rating: Number;
   description: String;
   price: Array<Number>;
-  image: String;
+  image: string[];
   stock: Number;
   category: object;
   variants: Array<variant>;
