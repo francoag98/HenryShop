@@ -16,14 +16,21 @@ const app = initializeApp(firebaseConfig);
 
 const storage = getStorage(app);
 
-export const uploadImageToFirebaseStorage = async (file: any): Promise<string | null> => {
-	if (!file) {
+export const uploadImageToFirebaseStorage = async (files: File[] | null): Promise<string[] | null> => {
+	if (!files) {
 		return null;
 	}
-
-	const imageName = `${Date.parse(new Date().toISOString())}.${file.type.split('/')[1]}`;
-	const storageRef = ref(storage, `productos/${imageName}`);
-	await uploadBytes(storageRef, file);
-
-	return await getDownloadURL(storageRef);
+	console.log("files", files)
+    const promises = files.map((f) => {
+		const imageName = `${Date.parse(new Date().toISOString())}.${f.type.split('/')[1]}`;
+		const storageRef = ref(storage, `productos/${imageName}`);
+		return new Promise<string>(async (resolve, reject) => {
+			await uploadBytes(storageRef, f);
+			  resolve( await getDownloadURL(storageRef))
+		})
+	});
+console.log("promises", promises);
+	const result = await Promise.all(promises);
+	console.log("result", result);
+	return result;
 };

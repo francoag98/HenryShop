@@ -117,21 +117,27 @@ const PostForm = () => {
   const [input, setInput] = useState(initialForm);
 
   const [file, setFile] = useState(null);
-
+  let [images, setImages] = useState<any>([]);
+  const [link, setLink] = useState<any>([]);
   let imgSrc: any;
   let imgFile: any;
-  let imgUrl: any;
+  let imgUrls: string[] | null;
+  let newImages: File[] = [];
+  
+  const onChangeFiles = (e: React.ChangeEvent<HTMLInputElement>) => {
+    
+    e.preventDefault();
+    if(!e.target.files) return ;
+    
+     newImages = Array.from(e.target.files);
+     
+     console.log("hola", newImages)
+     setImages([...images, ...newImages]);
 
-  const onChangeFiles = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const target = e.target as HTMLInputElement;
-    imgSrc = target.files?.[0];
-    setFile(imgSrc);
-    let arr: string = "";
-    imgFile = URL.createObjectURL(imgSrc);
-    arr = imgFile;
-    setInput((prev) => ({ ...prev, image: arr }));
+
+     console.log("aha", images)
   };
-
+  
   const submitCall = async ({
     name,
     description,
@@ -139,15 +145,15 @@ const PostForm = () => {
     category,
   }: formData) => {
     let backData = process.env.REACT_APP_BACKEND_URL;
-    imgUrl = await uploadImageToFirebaseStorage(file);
-
+    imgUrls = await uploadImageToFirebaseStorage(images);
+    console.log("imgurlawa", imgUrls);
     if (backData)
       axios
         .post(`${backData}/products`, {
           name,
           description,
           price,
-          image: imgUrl,
+          image: imgUrls,
           category,
           variants: variantsInput,
           variantName,
@@ -160,7 +166,7 @@ const PostForm = () => {
             showConfirmButton: false,
           }).then((result) => {
             if (result) {
-              navigate("/admin");
+              // navigate("/admin");
             }
           });
         })
@@ -189,6 +195,36 @@ const PostForm = () => {
       className="flex justify-center flex-col items-center w-9/12 m-auto"
     >
       <div className="mb-3.5 w-full">
+      <div className="mb-3.5 w-full">
+        <div className="flex justify-center">
+          <input
+            {...register("image")}
+            id="image"
+            type="file"
+            multiple
+            className="border border-black border-solid w-full rounded-sm pl-2 py-1"
+            onChange={onChangeFiles}
+          />
+          *
+        </div>
+        {images?.map((e: any, index:any) => {
+          return (
+            <div className="flex flex-wrap justify-start h-28 mt-4" key={index}>
+            {
+              <img
+                className="h-full mr-4 border border-black border-solid rounded"
+                src={URL.createObjectURL(e)}
+                alt={`upload_image_${e}`}
+                key={e}
+              />
+            }
+          </div>
+          )
+        })}
+        {errors.image && (
+          <p className="text-red-600 font-bold">{errors.image.message}</p>
+        )}
+      </div>
         <div className="flex justify-center">
           <input
             {...register("name")}
@@ -236,33 +272,7 @@ const PostForm = () => {
         )}
       </div>
 
-      <div className="mb-3.5 w-full">
-        <div className="flex justify-center">
-          <input
-            {...register("image")}
-            id="image"
-            type="file"
-            className="border border-black border-solid w-full rounded-sm pl-2 py-1"
-            onChange={onChangeFiles}
-          />
-          *
-        </div>
-        {input.image.length ? (
-          <div className="flex flex-wrap justify-start h-28 mt-4">
-            {
-              <img
-                className="h-full mr-4 border border-black border-solid rounded"
-                src={input.image}
-                alt={`upload_image_${input.image}`}
-                key={input.image}
-              />
-            }
-          </div>
-        ) : null}
-        {errors.image && (
-          <p className="text-red-600 font-bold">{errors.image.message}</p>
-        )}
-      </div>
+      
 
       <div className="mb-3.5 w-full">
         <div className="flex justify-center">
